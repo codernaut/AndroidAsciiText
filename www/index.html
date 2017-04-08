@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ascii Math Implementation</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+    
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=no">
+    
+    <style>
+        /* following two viewport lines are equivalent to meta viewport statement above, and is needed for Windows */
+        /* see http://www.quirksmode.org/blog/archives/2014/05/html5_dev_conf.html and http://dev.w3.org/csswg/css-device-adapt/ */
+        @-ms-viewport { width: 100vw ; min-zoom: 100% ; zoom: 100% ; }          @viewport { width: 100vw ; min-zoom: 100% zoom: 100% ; }
+        @-ms-viewport { user-zoom: fixed ; min-zoom: 100% ; }                   @viewport { user-zoom: fixed ; min-zoom: 100% ; }
+        /*@-ms-viewport { user-zoom: zoom ; min-zoom: 100% ; max-zoom: 200% ; }   @viewport { user-zoom: zoom ; min-zoom: 100% ; max-zoom: 200% ; }*/
+    </style>
+
+    <link rel="stylesheet" href="css/app.css">
+    <script>
+		window.MathJax = {
+				AuthorInit: function() {
+					MathJax.Hub.Register.StartupHook('End', function() {
+						MathJax.Hub.processSectionDelay = 0
+						var demoSource = document.getElementById('demoSource')
+						var demoRendering = document.getElementById('demoRendering')
+						var math = MathJax.Hub.getAllJax('demoRendering')[0]
+						demoSource.addEventListener('input', function() {
+							MathJax.Hub.Queue(['Text', math, demoSource.value])
+						})
+					})
+				}
+			}
+	</script>
+	<script async
+	src=https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML-full.js>
+	</script>
+</head>
+
+
+<body>
+    <h1 class="align-center">ASCII MATH CONVERTER</h1>
+    <p class="align-center">
+        This App uses Math Jax to render math formulas from plain ASCII Text, this can be your quick go to when writing math papers
+    </p>
+    <br>
+    <p class="align-center">
+        <input type="button" id="id_btnHello" value="Help">
+    </p>
+
+    
+    <script src="cordova.js"></script>          <!-- "Phantom" cordova.js required for projects that use plugins -->
+
+    <script src="js/app.js"></script>           <!-- for your event code, see README and file comments for details -->
+    <script src="js/init-app.js"></script>      <!-- for your init code, see README and file comments for details -->
+    <script src="xdk/init-dev.js"></script>     <!-- normalizes device and document ready events, see file for details -->
+
+ 
+</body>
+
+<section id="rendered">
+	<!--<h2>About</h2>
+
+	<p>AsciiMath is an easy-to-write markup language for mathematics.<br>
+		Try it out in the interactive renderer:</p>
+
+	--><div class="leftColumn">
+		<label for="demoSource">Input:</label>
+		<br/>
+
+		<textarea class="ioArea" id="demoSource">
+			sum_(i=1)^n i^3=((n(n+1))/2)^2
+		</textarea>
+	</div>
+
+	<div class="rightColumn">
+		<label for="demoRendering">Rendering:</label>
+		<br/>
+
+		<div class="ioArea" id="demoRendering">
+			`sum_(i=1)^n i^3=((n(n+1))/2)^2`
+		</div>
+	</div>
+</section>
+</html>
